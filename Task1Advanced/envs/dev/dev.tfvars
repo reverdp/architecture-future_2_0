@@ -1,0 +1,13 @@
+cloud_id              = "replace-with-dev-cloud-id"
+folder_id             = "replace-with-dev-folder-id"
+zone                  = "ru-central1-a"
+vm_name               = "dev-vm"
+cores                 = 2
+memory                = 2
+image_family          = "ubuntu-2204-lts"
+boot_disk_size_gb     = 15
+attached_disk_name    = "dev-vm-data-disk"
+attached_disk_size_gb = 10
+subnet_id             = "replace-with-dev-subnet-id"
+ssh_user              = "ubuntu"
+ssh_public_key        = "ssh-ed25519 AAAA... dev@example"

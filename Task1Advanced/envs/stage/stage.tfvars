@@ -1,0 +1,13 @@
+cloud_id              = "replace-with-stage-cloud-id"
+folder_id             = "replace-with-stage-folder-id"
+zone                  = "ru-central1-b"
+vm_name               = "stage-vm"
+cores                 = 2
+memory                = 4
+image_family          = "ubuntu-2204-lts"
+boot_disk_size_gb     = 20
+attached_disk_name    = "stage-vm-data-disk"
+attached_disk_size_gb = 20
+subnet_id             = "replace-with-stage-subnet-id"
+ssh_user              = "ubuntu"
+ssh_public_key        = "ssh-ed25519 AAAA... stage@example"

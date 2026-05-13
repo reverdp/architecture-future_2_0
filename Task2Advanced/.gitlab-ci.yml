@@ -1,0 +1,46 @@
+stages:
+  - validate
+  - plan
+  - apply
+
+variables:
+  TF_ENV: "dev"
+  TF_IN_AUTOMATION: "true"
+  TF_INPUT: "false"
+
+default:
+  image:
+    name: hashicorp/terraform:1.15.2
+    entrypoint: [""]
+  before_script:
+    - cd "envs/${TF_ENV}"
+    - terraform version
+    - terraform init -backend-config=backend.hcl -input=false
+
+terraform_validate:
+  stage: validate
+  script:
+    - terraform validate
+
+terraform_plan:
+  stage: plan
+  script:
+    - terraform plan -var-file="${TF_ENV}.tfvars" -out=tfplan -input=false
+  artifacts:
+    name: "terraform-plan-${TF_ENV}"
+    paths:
+      - "envs/${TF_ENV}/tfplan"
+    expire_in: 1 day
+
+terraform_apply:
+  stage: apply
+  needs:
+    - job: terraform_plan
+      artifacts: true
+  script:
+    - terraform apply -input=false -auto-approve tfplan
+  allow_failure: false
+  rules:
+    - if: '$CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH'
+      when: manual
+    - when: never

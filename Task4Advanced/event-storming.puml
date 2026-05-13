@@ -1,0 +1,64 @@
+@startuml
+title Event Storming компании "Будущее 2.0"
+
+package "Управление пациентами" as Patient {
+  [Зарегистрирован пациент] as PatientRegistered
+}
+
+package "Медицинские услуги" as Medical {
+  [Создан медицинский случай] as MedicalCaseCreated
+  [Назначено лечение] as TreatmentAssigned
+  [Запрошено ИИ-исследование] as AIResearchRequested
+  [Создан заказ лекарств] as MedicationOrderCreated
+}
+
+package "ИИ-диагностика" as AI {
+  [Завершено ИИ-исследование] as AIResearchCompleted
+}
+
+package "Счета и оплаты" as Billing {
+  [Выставлен счёт] as InvoiceIssued
+  [Оплата получена] as PaymentReceived
+  [Оплата не прошла] as PaymentFailed
+}
+
+package "Финтех-сервисы" as Fintech {
+  [Создана кредитная заявка] as CreditApplicationCreated
+  [Создан кредитный договор] as CreditContractCreated
+  [Кредит отклонён] as CreditRejected
+}
+
+package "Партнёры\nФарма и оборудование" as Partners {
+  [Получены данные устройства] as DeviceDataReceived
+  [Заказ лекарств выполнен] as MedicationOrderCompleted
+}
+
+package "Платформа данных\nВитрины и аналитика" as Analytics {
+  [Обновлены витрины данных] as DataMartUpdated
+}
+
+PatientRegistered --> Medical
+
+MedicalCaseCreated --> AIResearchRequested
+AIResearchRequested --> AIResearchCompleted
+AIResearchCompleted --> Medical
+
+TreatmentAssigned --> InvoiceIssued
+TreatmentAssigned --> MedicationOrderCreated
+MedicationOrderCreated --> MedicationOrderCompleted
+
+InvoiceIssued --> CreditApplicationCreated
+CreditApplicationCreated --> CreditContractCreated
+CreditApplicationCreated --> CreditRejected
+CreditContractCreated --> PaymentReceived
+
+PatientRegistered --> DataMartUpdated
+TreatmentAssigned --> DataMartUpdated
+AIResearchCompleted --> DataMartUpdated
+InvoiceIssued --> DataMartUpdated
+PaymentReceived --> DataMartUpdated
+CreditContractCreated --> DataMartUpdated
+DeviceDataReceived --> DataMartUpdated
+MedicationOrderCompleted --> DataMartUpdated
+
+@enduml

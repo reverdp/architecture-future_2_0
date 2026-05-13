@@ -1,0 +1,13 @@
+cloud_id              = "replace-with-prod-cloud-id"
+folder_id             = "replace-with-prod-folder-id"
+zone                  = "ru-central1-d"
+vm_name               = "prod-vm"
+cores                 = 4
+memory                = 8
+image_family          = "ubuntu-2204-lts"
+boot_disk_size_gb     = 30
+attached_disk_name    = "prod-vm-data-disk"
+attached_disk_size_gb = 50
+subnet_id             = "replace-with-prod-subnet-id"
+ssh_user              = "ubuntu"
+ssh_public_key        = "ssh-ed25519 AAAA... prod@example"

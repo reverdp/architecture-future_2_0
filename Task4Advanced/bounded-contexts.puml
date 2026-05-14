@@ -1,0 +1,39 @@
+@startuml
+title Целевые Bounded Contexts компании "Будущее 2.0"
+
+package "Управление пациентами" as Patient
+package "Медицинские услуги" as Medical
+package "ИИ-диагностика" as AI
+package "Счета и оплаты" as Billing
+package "Финтех-сервисы" as Fintech
+package "Партнёры\nФарма и оборудование" as Partners
+package "Платформа данных\nВитрины и аналитика" as Analytics
+
+Patient --> Medical : зарегистрирован пациент
+
+Medical --> AI : запрошено ИИ-исследование
+AI --> Medical : завершено ИИ-исследование
+
+Medical --> Billing : назначено лечение
+Billing --> Fintech : выставлен счёт
+Fintech --> Billing : создан кредитный договор
+
+Partners --> Medical : получены данные устройства
+Medical --> Partners : создан заказ лекарств
+
+Patient --> Analytics : события по пациентам
+Medical --> Analytics : разрешённые медицинские события
+Billing --> Analytics : события по оплатам
+Fintech --> Analytics : события по кредитам
+Partners --> Analytics : события партнёров
+
+note right of Analytics
+  В витрины передаются только разрешённые,
+  агрегированные или обезличенные данные.
+
+  Медицинские карты, истории болезни
+  и результаты исследований не включаются
+  в аналитическую витрину.
+end note
+
+@enduml
